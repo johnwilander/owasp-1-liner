@@ -103,7 +103,7 @@ Check the build.gradle file for dependencies.
 
 ### How to set up trusted SSL on Mac OS X
 
-Below are instruction on how to get browsers without their own trusted CAs list (i e Chrome and Safari) to accept your applications self-signed SSL cert for https://local.1-liner.org:8444.
+Below are instructions on how to get browsers without their own trusted CAs list (i e Chrome and Safari) to accept your applications self-signed SSL cert for https://local.1-liner.org:8444.
 
  1. Open a shell and cd to the app root dir (that's where you'll see the keystore file)
  2. If the supplied certificate has expired or you want to replace it for some other reason, run Java's keytool like
