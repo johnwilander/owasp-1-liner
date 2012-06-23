@@ -1,0 +1,27 @@
+.user {
+    background-image:url(../images/user.gif ) !important;
+}
+
+.user-add {
+    background-image:url(../images/user_add.gif) !important;
+}
+
+.user-delete {
+    background-image:url(../images/user_delete.gif) !important;
+}
+
+.connect {
+    background-image:url(../images/connect.gif) !important;
+}
+
+.user-girl {
+    background-image:url(../images/user_female.gif) !important;
+}
+
+.user-kid {
+    background-image:url(../images/user_green.gif) !important;
+}
+
+.user-suit {
+    background-image:url(../images/user_suit.gif) !important;
+}

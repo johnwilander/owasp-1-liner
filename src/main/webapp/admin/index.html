@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OWASP 1-Liner Admin Interface</title>
+    <script src="../js/jquery-1.7.2.min.js"></script>
+    <script src="../js/jquery.cookie.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#setUserCookie").click(function(event) {
+                var newUser = $("#newUser").val();
+                event.preventDefault();
+                $.cookie("nickNameSecurish", newUser, {path: "/"});
+                $.cookie("nickNameVulnerable", newUser, {path: "/"});
+            });
+        })
+    </script>
+</head>
+<body>
+<form id="reset" method="POST" action="https://local.1-liner.org:8444/ws/vulnerable/oneliners/reset">
+    <input type="submit" value="Reset oneliner DB" />
+</form>
+
+<form method="POST" action="">
+    <input id="newUser" type="text" />
+    <button id="setUserCookie">Switch</button>
+</form>
+
+<!--
+<form id="resetPurchases" method="POST" action="https://local.1-liner.org:8444/ws/vulnerable/checkout/reset">
+    <input type="submit" value="Reset purchases DB" />
+</form>
+-->
+</body>
+</html>

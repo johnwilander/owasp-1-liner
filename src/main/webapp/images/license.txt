@@ -1,0 +1,1 @@
+These images come from Sencha's Ext JS 4 which is released under GPL3. Please see the information on Ext JS license.

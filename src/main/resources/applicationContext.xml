@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+       default-autowire="no">
+
+    <context:component-scan base-package="org.owasp.oneliner.filters" />
+    <context:component-scan base-package="org.owasp.oneliner.rest.annotations" />
+    <context:component-scan base-package="org.owasp.oneliner.rest.securish" />
+    <context:component-scan base-package="org.owasp.oneliner.rest.vulnerable" />
+    <context:component-scan base-package="org.owasp.oneliner.rest.attacker" />
+    <context:component-scan base-package="org.owasp.oneliner.exceptions" />
+    <context:annotation-config/>
+    
+    <!--<import resource="classpath:deploymentContext.xml"/>-->
+
+    <bean id="secureRandom" class="java.security.SecureRandom" scope="singleton"></bean>
+
+    <bean id="userFactory" class="org.owasp.oneliner.user.UserFactory"></bean>
+    <bean id="userDataBase" class="org.owasp.oneliner.authentication.UserDataBase" scope="singleton">
+        <constructor-arg>
+            <set>
+                <bean factory-bean="userFactory" factory-method="createUser">
+                    <constructor-arg type="java.lang.String"><value>John</value></constructor-arg>
+                    <constructor-arg type="java.lang.String"><value>Jompa</value></constructor-arg>
+                    <constructor-arg type="java.lang.String"><value>John</value></constructor-arg>
+                </bean>
+                <bean factory-bean="userFactory" factory-method="createUser">
+                    <constructor-arg type="java.lang.String"><value>Johanna</value></constructor-arg>
+                    <constructor-arg type="java.lang.String"><value>Skrotan</value></constructor-arg>
+                    <constructor-arg type="java.lang.String"><value>Johanna</value></constructor-arg>
+                </bean>
+            </set>
+        </constructor-arg>
+    </bean>
+
+    <bean id="antiSamy" class="org.owasp.validator.html.AntiSamy" scope="singleton"></bean>
+    <bean id="oneLinerFactorySecurish" class="org.owasp.oneliner.oneLiner.OneLinerFactorySecurish">
+        <property name="antiSamy"><ref bean="antiSamy"></ref></property>
+    </bean>
+    <bean id="objectMapper" class="org.codehaus.jackson.map.ObjectMapper"></bean>
+    <bean id="oneLinerFactory" class="org.owasp.oneliner.oneLiner.OneLinerFactory"></bean>
+    <bean id="oneLinerDataBase" class="org.owasp.oneliner.persistence.OneLinerDb" scope="singleton">
+        <constructor-arg>
+            <list>
+                <bean factory-bean="oneLinerFactory" factory-method="createOneLiner">
+                    <constructor-arg type="java.lang.String"><value>John</value></constructor-arg>
+                    <constructor-arg type="java.lang.String"><value>Is CSRF really the sleeping giant?</value></constructor-arg>
+                </bean>
+                <bean factory-bean="oneLinerFactory" factory-method="createOneLiner">
+                    <constructor-arg type="java.lang.String"><value>Johanna</value></constructor-arg>
+                    <constructor-arg type="java.lang.String"><value>I'm too tired to think! Zzz.</value></constructor-arg>
+                </bean>
+                <bean factory-bean="oneLinerFactory" factory-method="createOneLiner">
+                    <constructor-arg type="java.lang.String"><value>Johanna</value></constructor-arg>
+                    <constructor-arg type="java.lang.String"><value>OK, which pizza would you like?</value></constructor-arg>
+                </bean>
+                <bean factory-bean="oneLinerFactory" factory-method="createOneLiner">
+                    <constructor-arg type="java.lang.String"><value>June</value></constructor-arg>
+                    <constructor-arg type="java.lang.String"><value>Anyone with loads of banana slices, that's the main thing.</value></constructor-arg>
+                </bean>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="sessionIdFactory" class="org.owasp.oneliner.session.SessionIdFactory"></bean>
+    <bean id="sessionManager" class="org.owasp.oneliner.session.SessionManager"></bean>
+
+    <bean id="hashedPasswordFactory" class="org.owasp.oneliner.password.HashedPasswordFactory"></bean>
+
+    <bean id="authenticator" class="org.owasp.oneliner.authentication.Authenticator"></bean>
+
+</beans>

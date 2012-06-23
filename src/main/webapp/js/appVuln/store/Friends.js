@@ -1,0 +1,59 @@
+/**
+ * Created by @johnwilander 2011-09-10
+ */
+Ext.define('ONELINERS.store.Friends', {
+
+    extend: 'Ext.data.TreeStore',
+    root:{
+        text:"Online",
+        expanded:true,
+        children:[
+            {
+                text:"Friends",
+                expanded:true,
+                children:[
+                    {
+                        text:"Petter",
+                        iconCls:"user",
+                        leaf:true
+                    },
+                    {
+                        text:"Kent",
+                        iconCls:"user",
+                        leaf:true
+                    },
+                    {
+                        text:"Mattias",
+                        iconCls:"user",
+                        leaf:true
+                    },
+                    {
+                        text:"Mats",
+                        iconCls:"user",
+                        leaf:true
+                    },
+                    {
+                        text:"Fredric",
+                        iconCls:"user",
+                        leaf:true
+                    }
+                ]},
+            {
+                text:"Family",
+                expanded:true,
+                children:[
+                    {
+                        text:"Johanna",
+                        iconCls:"user-girl",
+                        leaf:true
+                    },
+                    {
+                        text:"June",
+                        iconCls:"user-kid",
+                        leaf:true
+                    }
+                ]
+            }
+        ]
+    }
+});
