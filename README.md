@@ -39,10 +39,16 @@ Other licensed software bundled in:
 build.gradle file and their respective licenses can be found at each project's site.
 
 
-## B.
+## B. Quick Start
 
-OWASP 1-Liner is deployed on your own machine. This is the quickest way to get going.
-
+OWASP 1-Liner is deployed on your own machine. This is the quickest way to get going:
+ * Clone this repo using Git
+ * Enter '127.0.0.1 local.1-liner.org' and '127.0.0.1 attackr.se' in your hosts file
+ * Make sure you have [Gradle](http://www.gradle.org/) installed
+ * Go to the app root in a shell, for instance /opt/workspace/owasp_1-liner/
+ * Execute 'gradle jettyRun'
+ * Surf to [https://local.1-liner.org:8444](https://local.1-liner.org:8444)
+ * Check out the OWASP_1-Liner_Demos.txt file for demo inspiration
 
 ## C. Purpose
 
