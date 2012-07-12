@@ -9,8 +9,7 @@ IMPORTANT:
  * OWASP 1-Liner contains several serious security holes intended for demonstrations and application security
    training. Do not trust it with any kind of sensitive information such as usernames or passwords you use for regular
    sites and systems.
- * Despite its name OWASP 1-Liner is not yet an official OWASP project. But it has always been intended to be and now
-   that its release is about to happen the official process begins.
+ * OWASP 1-Liner is an official OWASP project, originally released at OWASP AppSec Research 2012 in Athens.
 
 
 ## Contents
@@ -24,7 +23,7 @@ E. Build and Deploy
 
 ## A. Licence and Attribution
 
-If you use the OWASP 1-Liner you should attribute its original author John Wilander and the OWASP Foundation.
+If you use the OWASP 1-Liner you should attribute its original author John Wilander and the OWASP Foundation. Thank you!
 
 OWASP 1-Liner is released under the Creative Commons Attribution-ShareAlike 3.0 Unported license. Full details can be
 found in the LICENSE_CC3.txt file in this project.
@@ -42,10 +41,10 @@ build.gradle file and their respective licenses can be found at each project's s
 ## B. Quick Start
 
 OWASP 1-Liner is deployed on your own machine. This is the quickest way to get going:
- * Clone this repo using Git
- * Enter '127.0.0.1 local.1-liner.org' and '127.0.0.1 attackr.se' in your hosts file
- * Make sure you have [Gradle](http://www.gradle.org/) installed
- * Go to the app root in a shell, for instance /opt/workspace/owasp_1-liner/
+ * Clone https://github.com/johnwilander/owasp-1-liner (this repo if you're on GitHub right now) using Git
+ * Enter '127.0.0.1 local.1-liner.org' and '127.0.0.1 attackr.se' in your hosts file (/etc/hosts on Unix)
+ * Make sure you have [Gradle](http://www.gradle.org/) installed ('brew install gradle' if you're on Mac OS and use Homebrew)
+ * Go to the root folder of your cloned OWASP 1-Liner in a shell, for instance /opt/workspace/owasp_1-liner/
  * Execute 'gradle jettyRun'
  * Surf to [https://local.1-liner.org:8444](https://local.1-liner.org:8444)
  * Check out the OWASP_1-Liner_Demos.txt file for demo inspiration
@@ -68,10 +67,16 @@ OWASP 1-Liner is built up of two implementations:
 OWASP 1-Liner is a [Gradle](http://www.gradle.org/) application. You download the source, build, and deploy on your own
 machine. The intention is to allow for live coding and patching. The suggested IDE is Jetbrains' IntelliJ.
 
+### Clone the Repository
+
+Go to [https://github.com/johnwilander/owasp-1-liner](https://github.com/johnwilander/owasp-1-liner) and clone the repo
+to your local machine using Git.
+
 
 ### Install Gradle
 
-If you haven't got Gradle, go to [http://www.gradle.org/](http://www.gradle.org/) and install it.
+If you haven't got Gradle, go to [http://www.gradle.org/](http://www.gradle.org/) and install it, or if you're on
+Mac OS X and use Homebrew you can just run 'brew install gradle' in a shell.
 
 
 ### Configuring local domain names on Mac OS X
@@ -84,13 +89,13 @@ user and add these lines:
 
 ### Configuring local domain names on Windows 7
 
-Help needed. If you can write this part I'd be very grateful. Just ping me on [Twitter](https://twitter.com/johnwilander).
+Help needed. If you can write this part we'd be very grateful. Just ping John on [Twitter](https://twitter.com/johnwilander).
 
 
 ### Build and run on Jetty
 
 OWASP 1-Liner uses the Jetty plugin for Gradle to run the apps.
- * Go to the app root in a shell, for instance /opt/workspace/owasp_1-liner/
+ * Go to the root folder of the cloned  in a shell, for instance /opt/workspace/owasp_1-liner/
  * gradle jettyRun
 
 Now the app should be up and ready for business on [https://local.1-liner.org:8444](https://local.1-liner.org:8444)

@@ -28,5 +28,8 @@ publish
 out
 build
 
+# Specific files to ignore
+owasp-1-liner.iml
+
 # Individual todo files :)
 todo.txt

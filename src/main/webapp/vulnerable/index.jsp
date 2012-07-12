@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 
 <%@ page import="javax.servlet.http.Cookie" %>
-<% Cookie nickCookie = new Cookie("nickNameVulnerable", "John"); nickCookie.setPath("/"); response.addCookie(nickCookie); %>
+<% Cookie nickCookie = new Cookie("nickNameVulnerable", "John"); nickCookie.setPath("/"); nickCookie.setDomain(".1-liner.org"); response.addCookie(nickCookie); %>
 
 <!DOCTYPE html>
 <html>
