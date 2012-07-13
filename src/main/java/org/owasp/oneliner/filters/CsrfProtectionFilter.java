@@ -67,6 +67,12 @@ public class CsrfProtectionFilter implements ResourceFilter, ContainerRequestFil
 
     private boolean isTokenOK() {
         String cookie = getCsrfProtectionTokenCookie();
-        return cookie != null && !"".equals(cookie) && cookie.equals(getCsrfProtectionTokenFormParam());
+        String param = getCsrfProtectionTokenFormParam();
+        if(cookie != null && !"".equals(cookie) && cookie.equals(param)) {
+            return true;
+        } else {
+            if(logger.isDebugEnabled()) { logger.debug("Anti-csrf cookie value == " + cookie + " and request parameter == " + param); }
+            return false;
+        }
     }
 }

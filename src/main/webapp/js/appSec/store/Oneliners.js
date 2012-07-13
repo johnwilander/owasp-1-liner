@@ -11,9 +11,9 @@ Ext.define('ONELINERS.store.Oneliners', {
     proxy: {
         type: 'ajax',
         api: {
-            create: 'ws/securish/oneliners?paramToken=' + Ext.util.Cookies.get("cookieToken"),
+            create: 'ws/securish/oneliners', // ?paramToken=' + Ext.util.Cookies.get("cookieToken"),
             read: 'ws/securish/oneliners/20',
-            update: 'ws/securish/oneliners?paramToken=' + Ext.util.Cookies.get("cookieToken")
+            update: 'ws/securish/oneliners' // ?paramToken=' + Ext.util.Cookies.get("cookieToken")
         },
         reader: {
             type: 'json',
@@ -36,7 +36,11 @@ Ext.define('ONELINERS.store.Oneliners', {
                     buttons: Ext.Msg.OK
                 });
             }
-        }
+        },
+        extraParams: {
+            paramToken: Ext.util.Cookies.get("cookieToken")
+        },
+        disableCaching: true
     },
     sorters: [{
         property : 'id',

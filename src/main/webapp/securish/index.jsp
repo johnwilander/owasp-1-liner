@@ -6,7 +6,7 @@
 <% SecureRandom secureRandom = new SecureRandom();
     String randomName = "" + secureRandom.nextLong();
     String randomValue = "" + secureRandom.nextLong();
-    response.setHeader("Set-Cookie", randomName + "=" + randomValue + "; HttpOnly; path='/'; domain=.1-liner.org");
+//    response.setHeader("Set-Cookie", randomName + "=" + randomValue + "; HttpOnly; path='/'; domain=.1-liner.org");
 %>
 <% Cookie nickCookie = new Cookie("nickNameSecurish", "June"); nickCookie.setPath("/"); nickCookie.setDomain(".1-liner.org"); response.addCookie(nickCookie); %>
 <% Cookie antiCsrf = new Cookie("cookieToken", "badc0ffee0123546"); antiCsrf.setPath("/"); antiCsrf.setDomain(".1-liner.org"); response.addCookie(antiCsrf); %>
