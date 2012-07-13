@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>OWASP 1-Liner Admin Interface</title>
+    <title>Admin</title>
     <script src="../js/jquery-1.7.2.min.js"></script>
     <script src="../js/jquery.cookie.js"></script>
     <script>
@@ -9,8 +9,8 @@
             $("#setUserCookie").click(function(event) {
                 var newUser = $("#newUser").val();
                 event.preventDefault();
-                $.cookie("nickNameSecurish", newUser, {path: "/"});
-                $.cookie("nickNameVulnerable", newUser, {path: "/"});
+                $.cookie("nickNameSecurish", newUser, {path: "/", domain: ".1-liner.org"});
+                $.cookie("nickNameVulnerable", newUser, {path: "/", domain: ".1-liner.org"});
             });
         })
     </script>
@@ -22,7 +22,7 @@
 
 <form method="POST" action="">
     <input id="newUser" type="text" />
-    <button id="setUserCookie">Switch</button>
+    <button id="setUserCookie">Switch User</button>
 </form>
 
 <!--

@@ -31,7 +31,7 @@ Ext.define('ONELINERS.store.Oneliners', {
             exception: function(proxy, response, operation){
                 Ext.MessageBox.show({
                     title: 'REMOTE EXCEPTION',
-                    msg: operation.getError(),
+                    msg: "Your 1-liner was not accepted",
                     icon: Ext.MessageBox.ERROR,
                     buttons: Ext.Msg.OK
                 });

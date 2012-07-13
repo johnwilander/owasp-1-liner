@@ -19,8 +19,6 @@
                 $("#output").html(searchText);
             });
         });
-
-        $.cookie("cookieToken", "bogus", {path: "/", domain: ".1-liner.org"});
     </script>
 
 </head>

