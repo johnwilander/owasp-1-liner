@@ -10,12 +10,12 @@ IMPORTANT:
 
 ## Contents
 
-A. License and Attribution
-B. Quick Start
-C. Purpose
-D. Project Structure
-E. Build and Deploy
-F. Contributors
+ A. License and Attribution
+ B. Quick Start
+ C. Purpose
+ D. Project Structure
+ E. Build and Deploy
+ F. Contributors
 
 
 ## A. Licence and Attribution
@@ -181,7 +181,7 @@ It does not have a SSL certificate manager. So, the certificate has to be added 
 
 $ certutil -d sql:$HOME/.pki/nssdb -A -t TC -n "Give_a_name" -i "the_extracted_certificate"
 
-## Contributors
+## F. Contributors
 
 Original and main developer is John Wilander.
 
