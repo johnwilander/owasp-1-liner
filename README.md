@@ -15,6 +15,7 @@ B. Quick Start
 C. Purpose
 D. Project Structure
 E. Build and Deploy
+F. Contributors
 
 
 ## A. Licence and Attribution
@@ -74,57 +75,48 @@ If you're on Mac OS X and use Homebrew you can just run 'brew install gradle' in
 
 #### On Windows 7
 
-If you haven't got Gradle, go to [http://www.gradle.org/](http://www.gradle.org/), download and unzip it. 
-Add the environment variable 'GRADLE_HOME' and then add 'GRADLE_HOME\bin' to Path variable.
+ 1. Go to [http://www.gradle.org/](http://www.gradle.org/), download and unzip Gradle
+ 2. Add the environment variable 'GRADLE_HOME' and then add 'GRADLE_HOME\bin' to the Path variable
 
 
 #### On Linux
 
-If you haven't got Gradle, go to [http://www.gradle.org/](http://www.gradle.org/), download and unzip it. 
-Edit the PATH in the environment file
-
-$ sudo nano /etc/environment
-
-Add the following to the environment file
-
-PATH = "... :$GRADLE_HOME/bin"
-
-GRADLE_HOME="gradle_directory".
-
-Reload environment variables
-
-$ source /etc/environment
-
-Add symbolic links to the usr/bin folder
-
-$ sudo ln -sf /gradle_directory/bin/* /usr/bin/.
+ 1. Go to [http://www.gradle.org/](http://www.gradle.org/), download and unzip Gradle
+ 2. Edit the PATH in the environment file, e.g. $ sudo nano /etc/environment
+ 3. Add the following to the environment file:
+    * PATH = "... :$GRADLE_HOME/bin"
+    * GRADLE_HOME="gradle_directory".
+ 4. Reload environment variables: $ source /etc/environment
+ 5. Add symbolic links to the usr/bin folder: $ sudo ln -sf /gradle_directory/bin/* /usr/bin/.
 
 
 ### Configuring local domain names 
 
+You have to access the apps through proper URLs (not IP numbers or "localhost") so you need to set up fake domain names in your hosts file.
+
 #### On Mac OS X
 
-You have to access the apps through proper URLs so you need to set these up in your /etc/hosts file. Open it up as super
-user and add these lines:
-127.0.0.1 local.1-liner.org
-127.0.0.1 attackr.se
+ 1. Open /etc/hosts as root in an editor, e.g sudo emacs /etc/hosts
+ 2. Add these lines:
+    * 127.0.0.1 local.1-liner.org
+    * 127.0.0.1 attackr.se
 
 
 #### On Windows 7
 
-Find Notepad and run it as administrator. 
-Find the C:\Windows\System32\drivers\etc\hosts file and open it. 
-Add '127.0.0.1 local.1-liner.org' and '127.0.0.1 attackr.se' in your hosts.
+ 1. Run an editor (e.g. Notepad) as administrator
+ 2. Open C:\Windows\System32\drivers\etc\hosts in the editor
+ 3. Add these lines:
+    * '127.0.0.1 local.1-liner.org'
+    * '127.0.0.1 attackr.se'
 
 
 #### On Linux
 
-Open and edit as root the file /etc/hosts.
-
-$ sudo gedit /etc/hosts
-
-The file opens and then add the below lines
-'127.0.0.1 local.1-liner.org' and '127.0.0.1 attackr.se'
+ 1. Open and edit as root the file /etc/hosts, e.g. $ sudo gedit /etc/hosts
+ 2. Add these lines:
+    * '127.0.0.1 local.1-liner.org'
+    * '127.0.0.1 attackr.se'
 
 
 ### Build and run on Jetty
@@ -164,19 +156,34 @@ Below are instructions on how to get browsers without their own trusted CAs list
 
 #### On Windows 7
 
-From Start button, type into Search Box "certmgr.msc". Then go to 'Trusted Root Certification Authorities' -> (right click) All tasks -> Import -> Next -> Browse -> (find the location of the certificate) ->  Next -> Finish -> Yes -> OK.
-It works for Firefox, IE, Chrome BUT in IE the application doesn't run as expected.
+ 1. Click Start button and enter "certmgr.msc" in the search box.
+ 2. Go to 'Trusted Root Certification Authorities'
+    * Right click
+    * Pick "All tasks" -> Import -> Next -> Browse
+    * Find the location of the OWASP 1-Liner certificate in the source root
+    * Next -> Finish -> Yes -> OK
 
+If the supplied certificate has expired or you want to replace it for some other reason, follow steps 1 and 2 under "On Mac OS X" in a Powershell.
+
+Note, we seem to have some problems running the application in IE. Bug reports are welcome.
 
 #### On Linux
 
+If the supplied certificate has expired or you want to replace it for some other reason, follow steps 1 and 2 under "On Mac OS X" in a shell.
+
 There is no central management for SSL certificates so you have to determine the validity of the certificate on each application.
 
-FIREFOX: Hit https://local.1-liner.org:8444 and then select 'I understand the risks' -> 'Add Exception' -> 'Get Certificate' -> 'Confirm security exception'.
+##### Firefox
+Hit https://local.1-liner.org:8444 and then select 'I understand the risks' -> 'Add Exception' -> 'Get Certificate' -> 'Confirm security exception'.
 
-CHROMIUM: It does not have a SSL certificate manager. So, the certificate has to be added to the NSS Shared DB with the use of lbnss3-tools, which has to be installed. Use Firefox to export the certificate to a file as PEM. Then type in a shell
+##### Chromium
+It does not have a SSL certificate manager. So, the certificate has to be added to the NSS Shared DB with the use of lbnss3-tools, which has to be installed. Use Firefox to export the certificate to a file as PEM. Then type in a shell
 
 $ certutil -d sql:$HOME/.pki/nssdb -A -t TC -n "Give_a_name" -i "the_extracted_certificate"
 
-The certificate's renewal is the same procedure as on Mac OS X.
+## Contributors
 
+Original and main developer is John Wilander.
+
+Further contributors in alphabetical order:
+* Paraskevi "Vicky" Simita
