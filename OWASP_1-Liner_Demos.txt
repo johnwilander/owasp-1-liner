@@ -52,7 +52,7 @@ BadGuy posts:
 
 John clicks
 
-BagGuy opens:
+BadGuy opens:
 http://attackr.se:3000/ui/panel
 
 

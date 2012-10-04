@@ -8,6 +8,8 @@
  * http://www.opensource.org/licenses/GPL-2.0
  */
 (function($) {
+    "use strict";
+
     $.cookie = function(key, value, options) {
 
         // key and at least value given, set cookie...

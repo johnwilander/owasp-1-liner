@@ -11,13 +11,17 @@ import org.owasp.oneliner.exceptions.BadCsrfProtectionTokenException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
+import static org.owasp.oneliner.util.RandomAlphaNumericString.isValidAlphaNumericString;
+
 /**
  * Author: @johnwilander
  * Date: 2010-nov-07
  */
 public class CsrfProtectionFilter implements ResourceFilter, ContainerRequestFilter {
     private static final Log logger = LogFactory.getLog(CsrfProtectionFilter.class);
-    public static final String COOKIE_TOKEN = "cookieToken";
+    public static final String SIMPLE_COOKIE_NAME = "cookieToken";
+    public static final int RANDOM_COOKIE_NAME_LENGTH = 16;
+    public static final int RANDOM_COOKIE_VALUE_LENGTH = 16;
     public static final String PARAM_TOKEN = "paramToken";
     private HttpServletRequest httpServletRequest;
 
@@ -51,13 +55,29 @@ public class CsrfProtectionFilter implements ResourceFilter, ContainerRequestFil
     // Private help methods
 
     private String getCsrfProtectionTokenCookie() {
+        int numOfSimpleCookies = 0, numOfRandomCookies = 0;
+        boolean foundRandomCookie = false;
         Cookie[] cookies = httpServletRequest.getCookies();
         String csrfProtectionCookieValue = null;
         for (Cookie cookie : cookies) {
-            if (COOKIE_TOKEN.equals(cookie.getName())) {
+            String cookieName = cookie.getName();
+            if (logger.isDebugEnabled()) { logger.debug("Checking cookie: " + cookieName); }
+            if (!foundRandomCookie && SIMPLE_COOKIE_NAME.equals(cookieName)) {
                 csrfProtectionCookieValue = cookie.getValue();
+                numOfSimpleCookies++;
+            } else if (cookieName.length() == RANDOM_COOKIE_NAME_LENGTH &&
+                    isValidAlphaNumericString(cookieName)) {
+                if (logger.isDebugEnabled()) { logger.debug("Found random cookie: " + cookieName); }
+                foundRandomCookie = true;  // Do no longer look for simple anti-csrf cookies
+                csrfProtectionCookieValue = cookie.getValue();
+                numOfRandomCookies++;
             }
         }
+        if (numOfSimpleCookies > 1 || numOfRandomCookies > 1) {
+            if(logger.isWarnEnabled()) { logger.warn("Got multiple anti-csrf cookies"); }
+            throw BadCsrfProtectionTokenException.INSTANCE;
+        }
+        if (logger.isDebugEnabled()) { if (foundRandomCookie) { logger.debug("Found random cookie"); } else { logger.debug("Found simple cookie"); } }
         return csrfProtectionCookieValue;
     }
 
