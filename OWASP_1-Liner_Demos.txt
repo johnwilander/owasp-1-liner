@@ -66,29 +66,62 @@ Hey BadGuy, check this out: https://attackr.se:8444/attacks/csrf/amazon/csrfMult
 
 *** Subdomain XSS for double submit bypass
 
-John:
+BadGuy:
+https://local.1-liner.org:8444/vulnerable/
+
+June:
 https://local.1-liner.org:8444/securish/
 
-John posts:
+Make sure webapp/securish/index.jsp uses double and not triple submit (check triple submit is commented out in two places)
+
+June posts:
 Hey, this works!
 
 Kill the cookie named cookieToken.
 
-John posts:
+Press a few returns in the log to get space.
+
+June posts:
 Will this work?
 
 Show server log.
 
 Reload https://local.1-liner.org:8444/securish/
 
-John posts:
+June posts:
 It works again
 
-John:
+June:
 https://other.1-liner.org:8444/vulnerable/simpleXSS.jsp
+
+Show June's cookieToken cookie.
 
 Search for:
 <script>$.cookie("cookieToken", "bogus", {path: "/", domain: ".1-liner.org"});</script>
 
+Again, show June's cookieToken cookie.
+
 BadGuy posts:
 OMG! https://attackr.se:8444/attacks/csrf/csrf3.html
+
+Show CSRFed oneliner
+
+
+*** Triple submit and bypass via cookie jar overflow ***
+
+Bring in triple submit cookie in webapp/securish/index.jsp (bring back out commented code in two places)
+
+June:
+Reload https://local.1-liner.org:8444/securish/
+
+Show random cookie
+
+June:
+https://other.1-liner.org:8444/vulnerable/cookieWipeXSS.jsp
+
+Overflow cookie jar.
+
+BadGuy posts:
+Ha, ha! https://attackr.se:8444/attacks/csrf/csrf4.html
+
+Show CSRFed oneliner

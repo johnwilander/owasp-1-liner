@@ -43,7 +43,9 @@
         $(document).ready(function() {
             var overwriteValue = "overwritten", knownHttpOnlyName = "httpOnlyCookie", knownSecureName = "secureCookie", knownHttpOnlyAndSecureName = "httpOnlyAndSecureCookie";
             $("#cookieJarOverflowButton").click(function(event) {
-                var count = -1;
+                var count = -1,
+                        nickNameSecurish = $.cookie("nickNameSecurish"),
+                        nickNameVulnerable = $.cookie("nickNameVulnerable");
                 $("#cookieJarOutput").text("Running ...");
                 count = overflowCookieJar();  // Timeout needed because cookie write loop freezes render thread
                 $("#cookieJarOutput").text("It took " + count + " cookies to overflow the jar. ");
@@ -53,6 +55,10 @@
                 outputHttpOnlyCookieOverwriteResult(knownHttpOnlyName, overwriteValue);
                 outputSecureCookieOverwriteResult(knownSecureName, overwriteValue);
                 outputHttpOnlyAndSecureCookieOverwriteResult(knownHttpOnlyAndSecureName, overwriteValue);
+                // Triple submit bypass
+                overwriteCookie("0987654321abcdef", "0987654321abcdef");
+                overwriteCookie("nickNameSecurish", nickNameSecurish);
+                overwriteCookie("nickNameVulnerable", nickNameVulnerable);
             });
             $("#httpOnlyWipeButton").click(function(event) {
                 overwriteCookie(knownHttpOnlyName, overwriteValue);
