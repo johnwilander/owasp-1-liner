@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Same Domain</title>
+    <script>
+        "use strict";
+        var GLOB = {};
+        GLOB.updateParentStatus = function(statusMessage) {
+            var result = window.document.getElementById("result"), top = window.top, topDocument, topDocumentStatusElement, topDocumentStatusText;
+            if (top) {
+                topDocument = top.document;
+                if (topDocument) {
+                    topDocumentStatusElement = topDocument.getElementById("status");
+                    if(topDocumentStatusElement) {
+                        if (topDocumentStatusElement.textContent !== null) {
+                            topDocumentStatusElement.textContent = statusMessage;
+                            result.textContent = "Access granted"
+                        } else {
+                            result.textContent = "Could not access parent element's textContent";
+                        }
+                    } else {
+                        result.textContent = "Could not access parent DOM element";
+                    }
+                } else {
+                    result.textContent = "Could not access parent document";
+                    top = "www.ibm.com";
+                }
+            } else {
+                result.textContent = "Could not access window.top";
+            }
+        }
+    </script>
+</head>
+<body>
+<h3>Same Domain</h3>
+<button onclick="GLOB.updateParentStatus('Updated from same domain')">Change parent status</button>
+Result:<div id="result"></div>
+</body>
+</html>

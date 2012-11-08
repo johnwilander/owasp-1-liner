@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Other Subdomain</title>
+    <script>
+        "use strict";
+        var GLOB = {};
+        GLOB.setDocumentDomain = function(parentDomainName) {
+            var result = window.document.getElementById("result");
+            document.domain = parentDomainName;
+            result.textContent = "document.domain == " + document.domain;
+
+        };
+        GLOB.updateParentStatus = function(statusMessage) {
+            var result = window.document.getElementById("result"), top = window.top, topDocument, topDocumentStatusElement, topDocumentStatusText;
+            if (top) {
+                topDocument = top.document;
+                if (topDocument) {
+                    topDocumentStatusElement = topDocument.getElementById("status");
+                    if(topDocumentStatusElement) {
+                        if (topDocumentStatusElement.textContent !== null) {
+                            topDocumentStatusElement.textContent = statusMessage;
+                            result.textContent = "Access granted"
+                        } else {
+                            result.textContent = "Could not access parent element's textContent";
+                        }
+                    } else {
+                        result.textContent = "Could not access parent DOM element";
+                    }
+                } else {
+                    result.textContent = "Could not access parent document";
+                    top = "www.ibm.com";
+                }
+            } else {
+                result.textContent = "Could not access window.top";
+            }
+        };
+    </script>
+</head>
+<body>
+<h3>Other Subdomain</h3>
+<button onclick="GLOB.updateParentStatus('Updated from other subdomain')">Change parent status</button>
+<button onclick="GLOB.setDocumentDomain('1-liner.org')">Set document.domain to 1-liner.org</button>
+Result:<div id="result"></div>
+</body>
+</html>
