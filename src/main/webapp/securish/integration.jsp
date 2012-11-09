@@ -11,6 +11,13 @@
     <script src="../js/jquery-1.7.2.min.js"></script>
     <title>Integration</title>
     <style>
+        .marginTopAndBotton {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .blackBorder {
+            border: solid black;
+        }
         .sameDomain {
             border: solid #adff2f;
         }
@@ -74,40 +81,43 @@
 
 <div class="container_24">
 
-    <div class="grid_24">
+    <div class="grid_8 blackBorder">
         <h3>Status</h3>
         <div id="status"></div>
-        <button onclick="GLOB.setDocumentDomain('1-liner.org')">Set document.domain to 1-liner.org</button>
-        <button onclick="GLOB.ajaxCall('https://local.1-liner.org:8444/ws/attacker/jsonpBenign?callback=myCallback')">Ajax call to same domain</button>
-        <button onclick="GLOB.jsonpCall('https://local.1-liner.org:8444/ws/attacker/jsonpBenign', 'GLOB.jsonpCallback')">jsonp call to another domain</button>
     </div>
 
-    <!--  -->
+    <div class="grid_16 blackBorder">
+        <button onclick="GLOB.setDocumentDomain('1-liner.org')">Set document.domain to 1-liner.org</button>
+        <button onclick="GLOB.jsonpCall('https://other.1-liner.org:8444/ws/jsonpBenign', 'GLOB.jsonpCallback')">benign jsonp call to another domain</button>
+        <button onclick="GLOB.jsonpCall('https://other.1-liner.org:8444/ws/attacker/jsonpEvil', 'GLOB.jsonpCallback')">jsonp call to a compromised domain</button>
+    </div>
 
-    <div class="sameDomain grid_8">
+    <div class="clear"></div>
+
+    <div class="sameDomain grid_8 marginTopAndBotton">
         <iframe id=sameDomainNoSandbox src="subPages/sameDomain.html" height="200" seamless></iframe>
     </div>
 
-    <div class="sameDomainSandboxed grid_8">
+    <div class="sameDomainSandboxed grid_8 marginTopAndBotton">
         <iframe id=sameDomainSandbox src="subPages/sameDomain.html" height="200" sandbox="allow-scripts" seamless></iframe>
     </div>
 
-    <div class="otherSubDomain grid_8">
+    <div class="otherSubDomain grid_8 marginTopAndBotton">
         <iframe id=otherSubDomainNoSandbox src="https://other.1-liner.org:8444/securish/subPages/otherSubdomain.html" height="200" seamless></iframe>
     </div>
 
     <div class="clear"></div>
 
-    <div class="otherSubDomainSandboxed grid_8">
-        <iframe id=otherSubDomainSandbox src="https://other.1-liner.org:8444/securish/subPages/otherSubdomain.html" height="200" seamless></iframe>
+    <div class="otherSubDomainSandboxed grid_8 marginTopAndBotton">
+        <iframe id=otherSubDomainSandbox src="https://other.1-liner.org:8444/securish/subPages/otherSubdomain.html" sandbox="allow-scripts" height="200" seamless></iframe>
     </div>
 
-    <div class="otherDomain grid_8">
+    <div class="otherDomain grid_8 marginTopAndBotton">
         <iframe id=otherDomainNoSandbox src="https://attackr.se:8444/securish/subPages/otherDomain.html" height="200" seamless></iframe>
     </div>
 
-    <div class="otherDomainSandboxed grid_8">
-        <iframe id=otherDomainSandbox src="https://attackr.se:8444/securish/subPages/otherDomain.html" height="200" seamless></iframe>
+    <div class="otherDomainSandboxed grid_8 marginTopAndBotton">
+        <iframe id=otherDomainSandbox src="https://attackr.se:8444/securish/subPages/otherDomain.html" sandbox="allow-scripts" height="200" seamless></iframe>
     </div>
 
 </div>

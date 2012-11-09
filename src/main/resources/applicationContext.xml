@@ -19,6 +19,7 @@
     <context:component-scan base-package="org.owasp.oneliner.rest.securish" />
     <context:component-scan base-package="org.owasp.oneliner.rest.vulnerable" />
     <context:component-scan base-package="org.owasp.oneliner.rest.attacker" />
+    <context:component-scan base-package="org.owasp.oneliner.rest.otherDomain" />
     <context:component-scan base-package="org.owasp.oneliner.exceptions" />
     <context:component-scan base-package="org.owasp.oneliner.util" />
     <context:annotation-config/>

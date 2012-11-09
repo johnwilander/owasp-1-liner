@@ -7,9 +7,12 @@
         var GLOB = {};
         GLOB.setDocumentDomain = function(parentDomainName) {
             var result = window.document.getElementById("result");
-            document.domain = parentDomainName;
-            result.textContent = "document.domain == " + document.domain;
-
+            if (document.domain) {
+                document.domain = parentDomainName;
+                result.textContent = "document.domain == " + document.domain;
+            } else {
+                result.textContent = "Could not access document.domain";
+            }
         };
         GLOB.updateParentStatus = function(statusMessage) {
             var result = window.document.getElementById("result"), top = window.top, topDocument, topDocumentStatusElement, topDocumentStatusText;
