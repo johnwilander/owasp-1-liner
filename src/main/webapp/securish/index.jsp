@@ -8,6 +8,7 @@
 <%  // Triple submit cookie. Comment out if you want double submit
     //String randomName = new RandomAlphaNumericString(CsrfProtectionFilter.RANDOM_COOKIE_NAME_LENGTH).toString();
     //String randomValue = new RandomAlphaNumericString(CsrfProtectionFilter.RANDOM_COOKIE_VALUE_LENGTH).toString();
+    String randomValue = "noTripleCommit";
     //response.addHeader("Set-Cookie", randomName + "=" + randomValue + "; HttpOnly; path=/; domain=.1-liner.org");
 %>
 
