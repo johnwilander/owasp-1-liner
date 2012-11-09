@@ -71,9 +71,14 @@
             req.addEventListener("load", transferComplete, false);
             req.addEventListener("error", transferFailed, false);
             req.addEventListener("abort", transferCanceled, false);
+            req.onreadystatechange = transferComplete;
 
-            req.open('GET', url);
-            req.send();
+            try {
+                req.open('GET', url);
+                req.send();
+            } catch (error) {
+                result.textContent = error;
+            }
         };
     </script>
 </head>
@@ -90,6 +95,7 @@
         <button onclick="GLOB.setDocumentDomain('1-liner.org')">Set document.domain to 1-liner.org</button>
         <button onclick="GLOB.jsonpCall('https://other.1-liner.org:8444/ws/jsonpBenign', 'GLOB.jsonpCallback')">benign jsonp call to another domain</button>
         <button onclick="GLOB.jsonpCall('https://other.1-liner.org:8444/ws/attacker/jsonpEvil', 'GLOB.jsonpCallback')">jsonp call to a compromised domain</button>
+        <button onclick="GLOB.ajaxCall('https://other.1-liner.org:8444/ws/cors')">Ajax call to CORS-enabled domain</button>
     </div>
 
     <div class="clear"></div>

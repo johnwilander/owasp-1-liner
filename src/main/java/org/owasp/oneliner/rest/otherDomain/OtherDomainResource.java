@@ -30,8 +30,11 @@ public class OtherDomainResource {
     @GET
     @Path("/cors")
     public Response cors() {
+        if (logger.isDebugEnabled()) { logger.debug("CORS resource called"); }
         GenericEntity entity = new GenericEntity<String>("From another domain") {};
-        return Response.ok(entity, MediaType.TEXT_PLAIN_TYPE).build();
+        Response.ResponseBuilder responseBuilder = Response.ok(entity, MediaType.TEXT_PLAIN_TYPE);
+        responseBuilder.header("Access-Control-Allow-Origin", "https://local.1-liner.org:8444");
+        return responseBuilder.build();
     }
 
 }
