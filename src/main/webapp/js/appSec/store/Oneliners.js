@@ -38,7 +38,7 @@ Ext.define('ONELINERS.store.Oneliners', {
             }
         },
         extraParams: {
-            paramToken: (ANTI_CSRF_TRIPLE? ANTI_CSRF_TRIPLE : Ext.util.Cookies.get("cookieToken"))
+            paramToken: (window.ANTI_CSRF_TRIPLE ? ANTI_CSRF_TRIPLE : Ext.util.Cookies.get("cookieToken"))
         },
         disableCaching: true
     },
