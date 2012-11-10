@@ -55,8 +55,9 @@
             scriptElement.setAttribute("src", url + (url.indexOf("?") !== -1? "" : "?") + "callback=" + callbackName);
             bodyElement.appendChild(scriptElement);
         };
-        GLOB.ajaxCall = function(url) {
-            var result = window.document.getElementById("status"),
+        GLOB.ajaxCall = function(url, requestMethod) {
+            var method = requestMethod? requestMethod : "GET",
+                    result = window.document.getElementById("status"),
                     req = new XMLHttpRequest(),
                     transferComplete = function(e) {
                         result.textContent = req.responseText;
@@ -74,7 +75,7 @@
             req.onreadystatechange = transferComplete;
 
             try {
-                req.open('GET', url);
+                req.open(method, url);
                 req.send();
             } catch (error) {
                 result.textContent = error;
@@ -95,7 +96,10 @@
         <button onclick="GLOB.setDocumentDomain('1-liner.org')">Set document.domain to 1-liner.org</button>
         <button onclick="GLOB.jsonpCall('https://other.1-liner.org:8444/ws/jsonpBenign', 'GLOB.jsonpCallback')">benign jsonp call to another domain</button>
         <button onclick="GLOB.jsonpCall('https://other.1-liner.org:8444/ws/attacker/jsonpEvil', 'GLOB.jsonpCallback')">jsonp call to a compromised domain</button>
-        <button onclick="GLOB.ajaxCall('https://other.1-liner.org:8444/ws/cors')">Ajax call to CORS-enabled domain</button>
+        <button onclick="GLOB.ajaxCall('https://other.1-liner.org:8444/ws/corsGet')">Ajax GET call to CORS-enabled domain</button>
+        <button onclick="GLOB.ajaxCall('https://other.1-liner.org:8444/ws/corsPost', 'POST')">Ajax POST call to CORS-enabled domain</button>
+        <button onclick="GLOB.ajaxCall('https://other.1-liner.org:8444/ws/non-corsPost', 'POST')">Ajax POST call to non-CORS-enabled domain</button>
+        <button onclick="GLOB.ajaxCall('https://other.1-liner.org:8444/ws/non-corsPostCheckOrigin', 'POST')">Ajax POST call to non-CORS-enabled domain that checks origin</button>
     </div>
 
     <div class="clear"></div>
