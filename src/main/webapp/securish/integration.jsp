@@ -81,6 +81,19 @@
                 result.textContent = error;
             }
         };
+        GLOB.openPopup = function(url) {
+            var strWindowFeatures = "menubar=no,scrollbars=no,status=no,height=200,width=200";
+            GLOB.popup = window.open(url, "Other", strWindowFeatures);
+            setTimeout('GLOB.popup.postMessage("I am your father.", "https://other.1-liner.org:8444")', 1000);
+        };
+        GLOB.receiveMessage = function(event) {
+            if (event.origin !== "https://other.1-liner.org:8444") {
+                return;
+            }
+            console.log(event.data);
+        }
+        window.addEventListener("message", GLOB.receiveMessage, false);
+
     </script>
 </head>
 <body>
@@ -97,9 +110,11 @@
         <button onclick="GLOB.jsonpCall('https://other.1-liner.org:8444/ws/jsonpBenign', 'GLOB.jsonpCallback')">benign jsonp call to another domain</button>
         <button onclick="GLOB.jsonpCall('https://other.1-liner.org:8444/ws/attacker/jsonpEvil', 'GLOB.jsonpCallback')">jsonp call to a compromised domain</button>
         <button onclick="GLOB.ajaxCall('https://other.1-liner.org:8444/ws/corsGet')">Ajax GET call to CORS-enabled domain</button>
+        <button onclick="GLOB.ajaxCall('https://other.1-liner.org:8444/ws/corsGetMultipleAllowedOrigins')">Ajax GET call to CORS-enabled domain, multiple origins allowed</button>
         <button onclick="GLOB.ajaxCall('https://other.1-liner.org:8444/ws/corsPost', 'POST')">Ajax POST call to CORS-enabled domain</button>
         <button onclick="GLOB.ajaxCall('https://other.1-liner.org:8444/ws/non-corsPost', 'POST')">Ajax POST call to non-CORS-enabled domain</button>
         <button onclick="GLOB.ajaxCall('https://other.1-liner.org:8444/ws/non-corsPostCheckOrigin', 'POST')">Ajax POST call to non-CORS-enabled domain that checks origin</button>
+        <button onclick="GLOB.openPopup('https://other.1-liner.org:8444/securish/subPages/postMessage.html')">Open popup for other domain</button>
     </div>
 
     <div class="clear"></div>

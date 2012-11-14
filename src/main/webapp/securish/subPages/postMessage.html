@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>postMessage</title>
+    <script>
+        "use strict";
+        var GLOB = {};
+        GLOB.acceptedMessageOrigin = "https://local.1-liner.org:8444";
+        GLOB.receiveMessage = function(event) {
+            if (event.origin !== GLOB.acceptedMessageOrigin) {
+                console.log("Received message from unaccepted origin " + event.origin);
+                return;
+            } else if (event.data == "I am your father.") {
+                GLOB.parentWindow = event.source;
+            }
+            console.log(event.data);
+        };
+        window.addEventListener("message", GLOB.receiveMessage, false);
+        GLOB.sendMessage = function(message) {
+            if (GLOB.parentWindow) {
+                GLOB.parentWindow.postMessage(message, GLOB.acceptedMessageOrigin);
+            }
+        };
+    </script>
+</head>
+<body>
+Hello world!
+<button onclick="GLOB.sendMessage('Nooo!')">Send message 'Nooo!'</button>
+</body>
+</html>
