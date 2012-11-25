@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 
+<% response.addHeader("Set-Cookie", "httpOnlyCookie=untouchable;Path=/;Domain=.1-liner.org;httpOnly");%>
+<% response.addHeader("Set-Cookie", "ordinaryCookie=serverValue;Path=/;Domain=.1-liner.org");%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,11 +16,13 @@
     <script src="integration.js"></script>
     <title>Integration</title>
     <style>
-        .status-bar {
+        .top-bar-margins {
             margin-top: 5px;
             margin-bottom: 5px;
+        }
+        .status-bar {
             color: #111111;
-            width: 350px;
+            width: 310px;
         }
         .marginTopAndBotton {
             margin-top: 10px;
@@ -74,6 +79,7 @@
                     <li id="cors-menu"><a href="#cors">CORS</a></li>
                     <li id="iframes-menu"><a href="#iframes">iframes</a></li>
                     <li id="postMessage-menu"><a href="#postMessage">postMessage</a></li>
+                    <li id="cookies-menu"><a href="#cookies">Cookies</a></li>
                     <!--
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
@@ -89,9 +95,11 @@
                     </li>
                     -->
                 </ul>
-                <div class="pull-right uneditable-input status-bar">
-                    <div class="pull-left">Status </div>
+                <div class="pull-right uneditable-input status-bar top-bar-margins">
+
+                    <div id="clearStatusBar" class="icon-remove pull-left"></div>
                     <div id="status" class="pull-right">
+                        Status
                     </div>
                 </div>
             </div><!--/.nav-collapse -->

@@ -39,15 +39,20 @@
                 $('#hero-content').html(fragments["hacks"]);
                 $('#content').html(fragments["iframes_accordion"]);
                 /*
-                $('#content').html('<div class="row"><div class="span6 marginTopAndBotton"><div class="legendNoSandbox">Ordinary iframes</div></div><div class="span6 marginTopAndBotton"><div class="legendSandboxed">Sandboxed iframes</div></div></div>' +
-                    fragments["same_domain_iframes"] + fragments["sub_domain_iframes"] + fragments["other_domain_iframes"]);
-                    */
+                 $('#content').html('<div class="row"><div class="span6 marginTopAndBotton"><div class="legendNoSandbox">Ordinary iframes</div></div><div class="span6 marginTopAndBotton"><div class="legendSandboxed">Sandboxed iframes</div></div></div>' +
+                 fragments["same_domain_iframes"] + fragments["sub_domain_iframes"] + fragments["other_domain_iframes"]);
+                 */
                 activateMenuItem("iframes");
             },
             "#postMessage" : function () {
                 $('#hero-content').html(fragments["postMessage"]);
                 $('#content').html("");
                 activateMenuItem("postMessage");
+            },
+            "#cookies" : function () {
+                $('#hero-content').html("");
+                $('#content').html(fragments["cookie_wipe_iframe"]);
+                activateMenuItem("cookies");
             }
         },
 
@@ -57,11 +62,18 @@
             }
         };
 
-    loadFragment(['hacks', 'non-sandboxed_iframes', 'cors', 'same_domain_iframes', 'sub_domain_iframes', 'other_domain_iframes', 'iframes_accordion', 'postMessage'], function() {});
+    if (global.location.hash === "") {
+        global.location.hash = "hacked";  // Set to start
+    }
+    global.onhashchange = locationHashChanged;
+
+    loadFragment(['hacks', 'non-sandboxed_iframes', 'cors', 'same_domain_iframes', 'sub_domain_iframes', 'other_domain_iframes', 'iframes_accordion', 'postMessage', 'cookie_wipe_iframe'],
+        function() {
+            locationHashChanged();  // All fragments loaded, load the current one
+        });
 
 //    $.get(view + '_fragment.html');
 
-    global.onhashchange = locationHashChanged;
 
 })(window);
 
@@ -99,8 +111,16 @@ GLOB.ajaxCall = function(url, requestMethod) {
     req.addEventListener("abort", transferCanceled, false);
     req.onreadystatechange = transferComplete;
 
+    if (GLOB.corsWithCredentials) {
+        req.withCredentials = true;
+    }
+
     try {
         req.open(method, url);
+
+        // Setting custom headers will trigger a preflight request to the server
+        //req.setRequestHeader("X-Requested-With", "XMLHttpRequest");  // Add Ajax header
+
         req.send();
     } catch (error) {
         result.textContent = error;
@@ -118,4 +138,19 @@ GLOB.receiveMessage = function(event) {
 }
 window.addEventListener("message", GLOB.receiveMessage, false);
 
+GLOB.toggleCorsWithCredentials = function() {
+    console.log("toggleCorsWithCredentials() called, GLOB.corsWithCredentials == " + GLOB.corsWithCredentials);
+    if (GLOB.corsWithCredentials) {
+        GLOB.corsWithCredentials = false;
+        $("#toggleCorsWithCredentials").text("Set withCredentials");
+    } else {
+        GLOB.corsWithCredentials = true;
+        $("#toggleCorsWithCredentials").text("Unset withCredentials");
+    }
+}
 
+$(document).ready( function() {
+    $("#clearStatusBar").click(function(event) {
+        window.document.getElementById("status").textContent = "Status";
+    })
+});

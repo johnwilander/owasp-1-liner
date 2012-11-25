@@ -38,7 +38,7 @@ Other licensed software bundled in:
 
 OWASP 1-Liner is deployed on your own machine. This is the quickest way to get going:
  * Clone https://github.com/johnwilander/owasp-1-liner (this repo if you're on GitHub right now) using Git
- * Enter '127.0.0.1 local.1-liner.org' and '127.0.0.1 attackr.se' in your hosts file 
+ * Enter '127.0.0.1 local.1-liner.org', '127.0.0.1 3rdparty.net', and '127.0.0.1 attackr.se' in your hosts file
  * Make sure you have [Gradle](http://www.gradle.org/) installed 
  * Go to the root folder of your cloned OWASP 1-Liner in a shell
  * Execute 'gradle jettyRun'
@@ -100,6 +100,7 @@ You have to access the apps through proper URLs (not IP numbers or "localhost") 
  1. Open /etc/hosts as root in an editor, e.g sudo emacs /etc/hosts
  2. Add these lines:
     * 127.0.0.1 local.1-liner.org
+    * 127.0.0.1 3rdparty.net
     * 127.0.0.1 attackr.se
 
 
@@ -109,6 +110,7 @@ You have to access the apps through proper URLs (not IP numbers or "localhost") 
  2. Open C:\Windows\System32\drivers\etc\hosts in the editor
  3. Add these lines:
     * '127.0.0.1 local.1-liner.org'
+    * '127.0.0.1 3rdparty.net'
     * '127.0.0.1 attackr.se'
 
 
@@ -117,6 +119,7 @@ You have to access the apps through proper URLs (not IP numbers or "localhost") 
  1. Open and edit as root the file /etc/hosts, e.g. $ sudo gedit /etc/hosts
  2. Add these lines:
     * '127.0.0.1 local.1-liner.org'
+    * '127.0.0.1 3rdparty.net'
     * '127.0.0.1 attackr.se'
 
 

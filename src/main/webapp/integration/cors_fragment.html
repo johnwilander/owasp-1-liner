@@ -3,3 +3,4 @@
 <button class="btn" onclick="GLOB.ajaxCall('http://other.1-liner.org:8081/ws/corsPost', 'POST')">Ajax POST call to CORS-enabled domain</button>
 <button class="btn" onclick="GLOB.ajaxCall('http://other.1-liner.org:8081/ws/non-corsPost', 'POST')">Ajax POST call to non-CORS-enabled domain</button>
 <button class="btn" onclick="GLOB.ajaxCall('http://other.1-liner.org:8081/ws/non-corsPostCheckOrigin', 'POST')">Ajax POST call to non-CORS-enabled domain that checks origin</button>
+<button id="toggleCorsWithCredentials" class="btn" onclick="GLOB.toggleCorsWithCredentials()">Set withCredentials</button>
