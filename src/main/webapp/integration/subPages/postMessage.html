@@ -5,15 +5,16 @@
     <script>
         "use strict";
         var GLOB = {};
-        GLOB.acceptedMessageOrigin = "https://local.1-liner.org:8444";
+        GLOB.acceptedMessageOrigin = "http://local.1-liner.org:8081";
         GLOB.receiveMessage = function(event) {
             if (event.origin !== GLOB.acceptedMessageOrigin) {
                 console.log("Received message from unaccepted origin " + event.origin);
                 return;
-            } else if (event.data == "I am your father.") {
+            } else if (event.data == "Luke, I am your father.") {
                 GLOB.parentWindow = event.source;
             }
-            console.log(event.data);
+            window.document.getElementById("status").textContent = event.data;
+            window.document.getElementById("noButton").style.display = "block";
         };
         window.addEventListener("message", GLOB.receiveMessage, false);
         GLOB.sendMessage = function(message) {
@@ -24,7 +25,7 @@
     </script>
 </head>
 <body>
-Hello world!
-<button onclick="GLOB.sendMessage('Nooo!')">Send message 'Nooo!'</button>
+Status: <div id="status"></div>
+<button id="noButton" onclick="GLOB.sendMessage('Nooo!')" style="display: none;">Send message 'Nooo!'</button>
 </body>
 </html>

@@ -28,7 +28,7 @@ Other licensed software bundled in:
  * Ext JS 4 from Sencha which is under the GNU General Public License (GPLv3), please see LICENSE_GPL3.txt.
  * jQuery and the jQuery Cookie plugin which are under the MIT license, please see LICENSE_MIT.txt.
  * jQuery encoder by Chris Schmidt. Please see LICENSE_JQUERY_ENCODER.txt.
- * 960 Grid System MIT/GPL, please see LICENSE_MIT.txt and LICENSE_GPL3.txt.
+ * Bootstrap from Twitter licensed under the Apache License, version 2.0. Please see LICENSE_APACHE_2.0.txt.
  * OWASP AntiSamy which is licensed under BSD 2. The project refers to the template which is available in LICENSE_BSD_2.txt.
  * One slightly modified file from BeEF, namely hook.js with a setTimeout call to beef_init(). BeEF is licensed under the Apache License, version 2.0. Please see LICENSE_APACHE_2.0.txt.
  * Several Java libraries and of course Java itself. All of these dependencies are found in the build.gradle file and their respective licenses can be found at each project's site.

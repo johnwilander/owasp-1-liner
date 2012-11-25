@@ -1,0 +1,3 @@
+<button class="btn" onclick="GLOB.setDocumentDomain('1-liner.org')">Set document.domain to 1-liner.org</button>
+<button class="btn" onclick="GLOB.jsonpCall('http://other.1-liner.org:8081/ws/jsonpBenign', 'GLOB.jsonpCallback')">benign jsonp call to another domain</button>
+<button class="btn" onclick="GLOB.jsonpCall('http://other.1-liner.org:8081/ws/attacker/jsonpEvil', 'GLOB.jsonpCallback')">jsonp call to a compromised domain</button>

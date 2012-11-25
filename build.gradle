@@ -8,7 +8,10 @@ apply plugin: 'jetty'
     httpsConnector.setPassword("1-liner");
     httpsConnector.setKeyPassword("1-liner");
 
-    connectors = [httpsConnector]
+    def httpConnector = jettyRun.class.classLoader.loadClass('org.mortbay.jetty.nio.SelectChannelConnector').newInstance()
+    httpConnector.setPort(8081);
+
+    connectors = [httpsConnector, httpConnector]
 }
 [jettyRun, jettyRunWar]*.contextPath = '/'
 sourceCompatibility = 1.6

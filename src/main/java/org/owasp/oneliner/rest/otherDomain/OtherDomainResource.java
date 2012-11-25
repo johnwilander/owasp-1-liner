@@ -21,7 +21,7 @@ import javax.ws.rs.core.Response;
 @Component
 public class OtherDomainResource {
     private static final Log logger = LogFactory.getLog(OtherDomainResource.class);
-    private static final String jsonpBody = "{\"data\": \"nothing\"}";
+    private static final String jsonpBody = "{\"data\": \"someData\"}";
 
     @GET
     @Path("/jsonpBenign")
@@ -95,8 +95,8 @@ public class OtherDomainResource {
 
         // Check that calls are only made from our own origin
         // For Jetty 7+ we should use the provided filter: http://wiki.eclipse.org/Jetty/Feature/Cross_Origin_Filter
-        if (AllowedCorsOrigin.contains(request.getHeader("Origin"))) {
-            if (logger.isDebugEnabled()) { logger.debug("Non-CORS POST resource called, origin OK"); }
+        if (AllowedCorsOrigin.LOCAL_1_LINER.origin.equals(request.getHeader("Origin"))) {
+            if (logger.isDebugEnabled()) { logger.debug("Non-CORS POST resource called, origin is myself which is OK"); }
             responseBuilder = Response.ok();
         } else {
             if (logger.isDebugEnabled()) { logger.debug("Non-CORS POST resource called, bad origin, returning UNAUTHORIZED"); }
@@ -107,7 +107,7 @@ public class OtherDomainResource {
     }
 
     private enum AllowedCorsOrigin {
-        LOCAL_1_LINER("https://local.1-liner.org:8444"), OTHER_1_LINER("https://local.1-liner.org:8444");
+        LOCAL_1_LINER("http://local.1-liner.org:8081"), OTHER_1_LINER("http://local.1-liner.org:8081");
 
         public static final String ORIGIN_SEPARATOR = " ";
         public final String origin;

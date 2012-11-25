@@ -1,0 +1,74 @@
+<div class="accordion" id="iframesAccordion">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#iframesAccordion" href="#collapseOne">
+                iframes from same domain
+            </a>
+        </div>
+        <div id="collapseOne" class="accordion-body collapse in">
+            <div class="accordion-inner">
+                <div class="row">
+                    <div class="span5 marginTopAndBotton">
+                        <div class="sameDomain">
+                            <iframe id=sameDomainNoSandbox src="subPages/sameDomain.html" height="150" seamless></iframe>
+                        </div>
+                    </div>
+
+                    <div class="span5 marginTopAndBotton">
+                        <div class="sameDomainSandboxed">
+                            <iframe id=sameDomainSandbox src="subPages/sameDomain.html" height="150" sandbox="allow-scripts" seamless></iframe>
+                        </div>
+                    </div>
+                </div><!--/row-->
+            </div>
+        </div>
+    </div>
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#iframesAccordion" href="#collapseTwo">
+                iframes from another subdomain
+            </a>
+        </div>
+        <div id="collapseTwo" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <div class="row">
+                    <div class="span5 marginTopAndBotton">
+                        <div class="otherSubDomain">
+                            <iframe id=otherSubDomainNoSandbox src="http://other.1-liner.org:8081/integration/subPages/otherSubdomain.html" height="150" seamless></iframe>
+                        </div>
+                    </div>
+
+                    <div class="span5 marginTopAndBotton">
+                        <div class="otherSubDomainSandboxed">
+                            <iframe id=otherSubDomainSandbox src="http://other.1-liner.org:8081/integration/subPages/otherSubdomain.html" sandbox="allow-scripts" height="150" seamless></iframe>
+                        </div>
+                    </div>
+                </div><!--/row-->
+            </div>
+        </div>
+    </div>
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#iframesAccordion" href="#collapseThree">
+                iframes from another domain
+            </a>
+        </div>
+        <div id="collapseThree" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <div class="row">
+                    <div class="span5 marginTopAndBotton">
+                        <div class="otherDomain">
+                            <iframe id=otherDomainNoSandbox src="http://attackr.se:8081/integration/subPages/otherDomain.html" height="150" seamless></iframe>
+                        </div>
+                    </div>
+
+                    <div class="span5 marginTopAndBotton">
+                        <div class="otherDomainSandboxed">
+                            <iframe id=otherDomainSandbox src="http://attackr.se:8081/integration/subPages/otherDomain.html" sandbox="allow-scripts" height="150" seamless></iframe>
+                        </div>
+                    </div>
+                </div><!--/row-->
+            </div>
+        </div>
+    </div>
+</div>
