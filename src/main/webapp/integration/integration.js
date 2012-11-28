@@ -117,7 +117,7 @@ GLOB.ajaxCall = function(url, requestMethod) {
         req.open(method, url);
 
         // Setting custom headers will trigger a preflight request to the server
-        //req.setRequestHeader("X-Requested-With", "XMLHttpRequest");  // Add Ajax header
+        //req.setRequestHeader('X-Requested-With', 'XMLHttpRequest');  // Add Ajax header
 
         req.send();
     } catch (error) {
