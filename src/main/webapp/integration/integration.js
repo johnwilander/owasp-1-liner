@@ -22,11 +22,9 @@
             $('#' + menuItem + '-menu').addClass('active');
         },
 
-        resultDiv = '<div>Status: <p id="status"></p> </div>',
-
         nav = {
             "#hacks" : function () {
-                $('#hero-content').html(fragments["hacks"] + resultDiv);
+                $('#hero-content').html(fragments["hacks"]);
                 $('#content').html(fragments["non-sandboxed_iframes"]);
                 activateMenuItem("hacks");
             },
@@ -63,7 +61,7 @@
         };
 
     if (global.location.hash === "") {
-        global.location.hash = "hacked";  // Set to start
+        global.location.hash = "hacks";  // Set to start
     }
     global.onhashchange = locationHashChanged;
 
@@ -139,7 +137,6 @@ GLOB.receiveMessage = function(event) {
 window.addEventListener("message", GLOB.receiveMessage, false);
 
 GLOB.toggleCorsWithCredentials = function() {
-    console.log("toggleCorsWithCredentials() called, GLOB.corsWithCredentials == " + GLOB.corsWithCredentials);
     if (GLOB.corsWithCredentials) {
         GLOB.corsWithCredentials = false;
         $("#toggleCorsWithCredentials").text("Set withCredentials");
