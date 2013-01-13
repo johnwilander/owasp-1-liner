@@ -12,17 +12,36 @@
                 $.cookie("nickNameSecurish", newUser, {path: "/", domain: ".1-liner.org"});
                 $.cookie("nickNameVulnerable", newUser, {path: "/", domain: ".1-liner.org"});
             });
-        })
+            $("#switchImageBehavior").click(function(event) {
+                var success = function() {},
+                        printError = function() {},
+                        url = "http://local.1-liner.org:8081/ws/attacker/unauthorizedImage",
+                        setUnauthorized = $("#unauthorizedImageCheckbox").is(":checked");
+                console.log(setUnauthorized);
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: setUnauthorized,
+                    success: success
+                });
+            });
+        });
     </script>
 </head>
 <body>
-<form id="reset" method="POST" action="https://local.1-liner.org:8444/ws/vulnerable/oneliners/reset">
+<form id="reset" method="POST" action="http://local.1-liner.org:8081/ws/vulnerable/oneliners/reset">
     <input type="submit" value="Reset oneliner DB" />
 </form>
 
 <form method="POST" action="">
     <input id="newUser" type="text" />
     <button id="setUserCookie">Switch User</button>
+</form>
+
+<form method="POST" action="">
+    <label for="unauthorizedImageCheckbox">Image unauthorized</label>
+    <input id="unauthorizedImageCheckbox" type="checkbox">
+    <button id="switchImageBehavior">Switch User</button>
 </form>
 
 <!--

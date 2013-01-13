@@ -2,8 +2,24 @@
 <html>
 <head>
     <title>Other Domain</title>
+    <script>
+        "use strict";
+        var GLOB = {};
+        GLOB.jsonpCallback = function(json) {
+            var result = window.document.getElementById("result");
+            result.textContent = "json.data == " + json.data;
+        };
+        GLOB.jsonpCall = function(url, callbackName) {
+            var bodyElement = window.document.getElementsByTagName("body")[0],
+                    scriptElement = document.createElement("script");
+            scriptElement.setAttribute("src", url + (url.indexOf("?") !== -1? "" : "?") + "callback=" + callbackName);
+            bodyElement.appendChild(scriptElement);
+        };
+    </script>
 </head>
 <body>
 <h3>3rdparty.net</h3>
+<button class="btn" onclick="GLOB.jsonpCall('http://local.1-liner.org:8081/ws/jsonpBenignRequiresCookie', 'GLOB.jsonpCallback')">jsonp call to another domain that requires cookie</button>
+Result:<div id="result"></div>
 </body>
 </html>

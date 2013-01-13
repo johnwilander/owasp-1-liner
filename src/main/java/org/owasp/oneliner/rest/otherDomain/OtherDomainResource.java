@@ -6,10 +6,7 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
@@ -29,6 +26,20 @@ public class OtherDomainResource {
     public Response jsonpBenign(@QueryParam("callback") String callback) {
         GenericEntity entity = new GenericEntity<String>(callback + "(" + jsonpBody + ");") {};
         return Response.ok(entity, MediaType.APPLICATION_JSON_TYPE).build();
+    }
+
+    @GET
+    @Path("/jsonpBenignRequiresCookie")
+    public Response jsonpBenignRequiresCookie(@QueryParam("callback") String callback, @CookieParam("httpOnlyCookie") String httpOnlyCookie, @Context HttpServletRequest request) {
+        if (logger.isDebugEnabled()) { logger.debug("Jsonp resource called, cookies: " + allCookiesAsString(request) + ", referer: " + request.getHeader("Referer")); }
+        Response response;
+        if (httpOnlyCookie.equals("untouchable")) {
+            GenericEntity entity = new GenericEntity<String>(callback + "(" + jsonpBody + ");") {};
+            response = Response.ok(entity, MediaType.APPLICATION_JSON_TYPE).build();
+        } else {
+            response = Response.status(Response.Status.UNAUTHORIZED).build();
+        }
+        return response;
     }
 
     @GET

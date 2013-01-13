@@ -4,12 +4,20 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.QueryParam;
+import javax.imageio.ImageIO;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.util.Enumeration;
 
 /**
  * @johnwilander
@@ -34,4 +42,37 @@ public class AttackerResource {
         return Response.ok(entity, MediaType.APPLICATION_JSON_TYPE).build();
     }
 
+    static final String IMG_PATH = "/images/thumb_john.jpg";
+    @GET
+    @Path("/thumb_john.jpg")
+    @Produces("image/jpg")
+    public Response getEvilImage(@Context ServletContext context) {
+        if (returnUnauthorized) {
+            return Response.status(Response.Status.UNAUTHORIZED).header("WWW-Authenticate", "Basic realm=1-Liner.org").build();
+        } else {
+            try {
+                BufferedImage image = ImageIO.read(context.getResourceAsStream(IMG_PATH));
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                ImageIO.write(image, "png", outputStream);
+                byte[] imageData = outputStream.toByteArray();
+                return Response.ok(imageData).build();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return Response.serverError().build();
+            }
+        }
+    }
+
+    private boolean returnUnauthorized = false;
+    @POST
+    @Path("/unauthorizedImage")
+    public void setUnauthorizedImage(@Context HttpServletRequest request) { //@FormParam("returnUnauthorizedImage") String returnUnauthorizedImage) {
+        logger.debug("/unauthorizedImage called. Request == " + request.toString());
+        logger.debug("request.getQueryString() == " + request.getQueryString());
+        Enumeration enumeration = request.getParameterNames();
+        while (enumeration.hasMoreElements()) {
+            logger.debug(enumeration.nextElement());
+        }
+        this.returnUnauthorized = "checked".equals("");
+    }
 }
