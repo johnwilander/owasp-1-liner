@@ -42,7 +42,7 @@ public class AttackerResource {
         return Response.ok(entity, MediaType.APPLICATION_JSON_TYPE).build();
     }
 
-    static final String IMG_PATH = "/images/thumb_john.jpg";
+    private static final String IMG_PATH = "/images/thumb_john.jpg";
     @GET
     @Path("/thumb_john.jpg")
     @Produces("image/jpg")
@@ -53,7 +53,7 @@ public class AttackerResource {
             try {
                 BufferedImage image = ImageIO.read(context.getResourceAsStream(IMG_PATH));
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                ImageIO.write(image, "png", outputStream);
+                ImageIO.write(image, "jpg", outputStream);
                 byte[] imageData = outputStream.toByteArray();
                 return Response.ok(imageData).build();
             } catch (IOException e) {
