@@ -13,16 +13,15 @@
                 $.cookie("nickNameVulnerable", newUser, {path: "/", domain: ".1-liner.org"});
             });
             $("#switchImageBehavior").click(function(event) {
-                var success = function() {},
-                        printError = function() {},
-                        url = "http://local.1-liner.org:8081/ws/attacker/unauthorizedImage",
-                        setUnauthorized = $("#unauthorizedImageCheckbox").is(":checked");
+                var url = "/ws/attacker/unauthorizedImage",
+                    setUnauthorized = $("#unauthorizedImageCheckbox").is(":checked");
+                event.preventDefault();
                 console.log(setUnauthorized);
                 $.ajax({
                     type: "POST",
                     url: url,
-                    data: setUnauthorized,
-                    success: success
+                    data: {"setUnauthorized" : setUnauthorized},
+                    dataType: "string"
                 });
             });
         });
@@ -41,7 +40,7 @@
 <form method="POST" action="">
     <label for="unauthorizedImageCheckbox">Image unauthorized</label>
     <input id="unauthorizedImageCheckbox" type="checkbox">
-    <button id="switchImageBehavior">Switch User</button>
+    <button id="switchImageBehavior">Switch</button>
 </form>
 
 <!--

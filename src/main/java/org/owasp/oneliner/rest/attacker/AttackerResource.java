@@ -48,7 +48,7 @@ public class AttackerResource {
     @Produces("image/jpg")
     public Response getEvilImage(@Context ServletContext context) {
         if (returnUnauthorized) {
-            return Response.status(Response.Status.UNAUTHORIZED).header("WWW-Authenticate", "Basic realm=1-Liner.org").build();
+            return Response.status(Response.Status.UNAUTHORIZED).header("WWW-Authenticate", "Basic").build();
         } else {
             try {
                 BufferedImage image = ImageIO.read(context.getResourceAsStream(IMG_PATH));
@@ -66,13 +66,8 @@ public class AttackerResource {
     private boolean returnUnauthorized = false;
     @POST
     @Path("/unauthorizedImage")
-    public void setUnauthorizedImage(@Context HttpServletRequest request) { //@FormParam("returnUnauthorizedImage") String returnUnauthorizedImage) {
-        logger.debug("/unauthorizedImage called. Request == " + request.toString());
-        logger.debug("request.getQueryString() == " + request.getQueryString());
-        Enumeration enumeration = request.getParameterNames();
-        while (enumeration.hasMoreElements()) {
-            logger.debug(enumeration.nextElement());
-        }
-        this.returnUnauthorized = "checked".equals("");
+    public void setUnauthorizedImage(@FormParam("setUnauthorized") boolean setUnauthorized) { //@FormParam("returnUnauthorizedImage") String returnUnauthorizedImage) {
+        logger.debug("setUnauthorized ==" + setUnauthorized);
+        this.returnUnauthorized = setUnauthorized;
     }
 }

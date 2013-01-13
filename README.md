@@ -100,6 +100,8 @@ You have to access the apps through proper URLs (not IP numbers or "localhost") 
  1. Open /etc/hosts as root in an editor, e.g sudo emacs /etc/hosts
  2. Add these lines:
     * 127.0.0.1 local.1-liner.org
+    * 127.0.0.1 other.1-liner.org
+    * 127.0.0.1 local.l-liner.org
     * 127.0.0.1 3rdparty.net
     * 127.0.0.1 attackr.se
 
@@ -110,6 +112,8 @@ You have to access the apps through proper URLs (not IP numbers or "localhost") 
  2. Open C:\Windows\System32\drivers\etc\hosts in the editor
  3. Add these lines:
     * '127.0.0.1 local.1-liner.org'
+    * '127.0.0.1 other.1-liner.org'
+    * '127.0.0.1 local.l-liner.org'
     * '127.0.0.1 3rdparty.net'
     * '127.0.0.1 attackr.se'
 
@@ -119,6 +123,8 @@ You have to access the apps through proper URLs (not IP numbers or "localhost") 
  1. Open and edit as root the file /etc/hosts, e.g. $ sudo gedit /etc/hosts
  2. Add these lines:
     * '127.0.0.1 local.1-liner.org'
+    * '127.0.0.1 other.1-liner.org'
+    * '127.0.0.1 local.l-liner.org'
     * '127.0.0.1 3rdparty.net'
     * '127.0.0.1 attackr.se'
 
