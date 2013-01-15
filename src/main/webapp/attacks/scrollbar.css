@@ -1,0 +1,85 @@
+input:invalid {display:none}
+input:invalid + b {display:none}
+input.letter{display:none}
+input.letter + b {font-size:14px}
+
+@font-face {
+    font-family: TestS; src: url(http://html5sec.org/webkit/test_S.svg#TestS) format("svg");
+}
+@font-face {
+    font-family: TestE; src: url(http://html5sec.org/webkit/test_E.svg#TestE) format("svg");
+}
+@font-face {
+    font-family: TestC; src: url(http://html5sec.org/webkit/test_C.svg#TestC) format("svg");
+}
+@font-face {
+    font-family: TestR; src: url(http://html5sec.org/webkit/test_R.svg#TestR) format("svg");
+}
+@font-face {
+    font-family: TestZ; src: url(http://html5sec.org/webkit/test_Z.svg#TestZ) format("svg");
+}
+@font-face {
+    font-family: TestT; src: url(http://html5sec.org/webkit/test_T.svg#TestT) format("svg");
+}
+div {
+    border: 1px solid red;
+    font-family: monospace;
+    height: 20px;
+    overflow-x: none;
+    overflow-y: auto;
+    -webkit-animation-duration: 5s;
+    -webkit-animation-name: decrease;
+}
+div input[password]:after {
+    color:blue;
+}
+div.a b {
+    font-family: TestS;
+}
+div.b b {
+    font-family: TestE;
+}
+div.c b {
+    font-family: TestZ;
+}
+div.d b {
+    font-family: TestT;
+}
+div.e b {
+    font-family: TestC;
+}
+div.f b {
+    font-family: TestR;
+}
+div::-webkit-scrollbar {
+    width: 12px;
+}
+div.a::-webkit-scrollbar-track-piece:vertical:increment {
+    background: red url(/S);
+}
+div.b::-webkit-scrollbar-track-piece:vertical:increment {
+    background: red url(/E);
+}
+div.c::-webkit-scrollbar-track-piece:vertical:increment {
+    background: red url(/Z);
+}
+div.d::-webkit-scrollbar-track-piece:vertical:increment {
+    background: red url(/T);
+}
+div.e::-webkit-scrollbar-track-piece:vertical:increment {
+    background: red url(/C);
+}
+div.f::-webkit-scrollbar-track-piece:vertical:increment {
+    background: red url(/R);
+}
+@-webkit-keyframes decrease {
+    from {
+        width: 360px;
+    }
+    50% {
+        width:40px;
+    }
+    100% {
+        width:360px;
+    }
+}
